@@ -23,4 +23,5 @@ Thumbs.db         # Windows
 config.py         # If you had any config file with secrets
 .env              # If you store secrets in an environment file
 
-echo ".gitignore" >> .gitignore
+# Ignore the .gitignore file itself (in case it's accidentally tracked)
+.gitignore
