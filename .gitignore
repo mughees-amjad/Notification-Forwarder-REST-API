@@ -22,3 +22,5 @@ Thumbs.db         # Windows
 # Sensitive files
 config.py         # If you had any config file with secrets
 .env              # If you store secrets in an environment file
+
+echo ".gitignore" >> .gitignore
