@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.env/
+
+# IDE/editor settings
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Operating system files
+.DS_Store         # macOS
+Thumbs.db         # Windows
+
+# Sensitive files
+config.py         # If you had any config file with secrets
+.env              # If you store secrets in an environment file
