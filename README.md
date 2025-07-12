@@ -1,91 +1,76 @@
-# Notification Forwarder Service
+# Notification Forwarder
 
-This project is a simple REST API that receives notification messages and forwards specific types to a Telegram channel.
-
-It filters notifications based on their type: 
-- Warnings are forwarded to Telegram.
-- Info messages are ignored.
-
-The goal of this project is to demonstrate API design, message handling, and basic integration with external services like Telegram.
+This is a simple RESTful web service built using Flask that receives notification messages and forwards them to a Telegram channel if the notification type is "Warning". This project is intended to demonstrate basic system design, API handling, message filtering, and third-party integration.
 
 ## Features
 
-- RESTful POST endpoint for receiving notifications.
-- Filtering based on the "Type" field of incoming messages.
-- Integration with Telegram using a bot.
-- In-memory processing (no database).
-- Includes tests using pytest.
+- Accepts POST requests with notification payloads
+- Filters and forwards "Warning" type messages to a Telegram channel
+- Ignores "Info" type messages
+- Built with a simple and modular Python structure
+- Includes test coverage using `pytest`
 
-## How it Works
+## Files Included
 
-When a service sends a POST request with a JSON body, the application checks the notification type. If it's a "Warning", it sends the message to a configured Telegram chat using the bot API. If it's "Info", the message is ignored.
+- `app.py`: Main Flask application handling incoming API requests
+- `messenger.py`: Logic to send messages to the Telegram bot
+- `test_app.py`: Unit tests to verify the service behavior
+- `config_example.py`: Template configuration file (credentials are excluded for security)
+- `README.md`: This documentation
 
-## Technologies Used
+## Configuration
 
-- Python 3
-- Flask (web server)
-- `requests` (for sending messages to Telegram)
-- `pytest` (for testing)
+To run the project, you need your own Telegram bot token and chat ID.
 
-## How to Set Up and Run
+1. Open the file `config_example.py`
+2. Replace the placeholders with your actual credentials:
 
-1. **Clone or extract the repository**
-   Make sure all files (`app.py`, `config.py`, etc.) are in the same folder.
+3. Rename the file from `config_example.py` to `config.py`
 
-2. **Create and activate a virtual environment**
+Note: Do not share your real `config.py` file publicly, as it contains sensitive credentials.
 
-   On Windows:
-   ```
-   python -m venv venv
-   venv\Scripts\activate
-   ```
+## How to Run the App
 
-   On Linux/Mac:
-   ```
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
+### 1. Set up your environment
 
-3. **Install required packages**
+Create and activate a Python virtual environment:
 
-   ```
-   pip install flask requests
-   ```
+```bash
+python -m venv venv
+source venv\Scripts\activate
+```
 
-4. **Update `config.py`**
+Install dependencies:
 
-   Add your own Telegram bot token and chat ID.
+```bash
+pip install -r requirements.txt
+```
 
-5. **Run the Flask server**
+### 2. Start the Flask server
 
-   ```
-   python app.py
-   ```
+```bash
+python app.py
+```
 
-   The API will run on `http://127.0.0.1:5000/notify`
+This will start the server at `http://127.0.0.1:5000`
 
-6. **Test the API**
+### 3. Send a test POST request
 
-   You can send a POST request using `curl` or Postman:
+You can use `curl` or Postman. Here's a curl example:
 
-   Example:
-   ```bash
-   curl -X POST http://127.0.0.1:5000/notify -H "Content-Type: application/json" -d "{\"Type\": \"Warning\", \"Name\": \"CPU Overload\", \"Description\": \"Load too high\"}"
-   ```
+```bash
+curl -X POST http://127.0.0.1:5000/notify   -H "Content-Type: application/json"   -d '{"Type": "Warning", "Name": "CPU Overload", "Description": "Load too high"}'
+```
 
-7. **Run Tests**
+You should see a response confirming the message was forwarded.
 
-   To run unit tests:
-   ```
-   pytest test_app.py
-   ```
+## Running the Tests
 
-## Notes
+To run the tests:
 
-- All messages are handled in-memory.
-- Authentication or error logging is not included to keep things simple.
-- The `messenger.py` module is responsible for sending messages through Telegram.
+```bash
+pytest test_app.py
+```
 
-## Author
+Make sure you are in the virtual environment when running this command.
 
-Muhammad Mughees
